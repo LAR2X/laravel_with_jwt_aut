@@ -39,8 +39,17 @@ Route::group([
 });
 
 
+Route::group([
+    'middleware' => 'auth:api',
+    'prefix' => 'auth'
 
-Route::get('test', [testController::class,'test']);
+], function ($router) {
+
+    Route::get('test', [testController::class,'test']);
+});
+
+
+
 
 
 
