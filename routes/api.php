@@ -2,11 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\JWTAuthController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\testController;
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -25,18 +22,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::group([
+
     'middleware' => 'api',
     'prefix' => 'auth'
-], function () {
 
-    
-    Route::post('registers',[JWTAuthController::class,'register']);
+], function ($router) {
 
-
-    Route::post('login', [JWTAuthController::class,'login']);
-    // Route::post('logout', [JWTAuthController::class,'logout']);
-    Route::get('refresh', [JWTAuthController::class,'refresh']);
-    // Route::get('profile', [JWTAuthController::class,'profile']);
+    Route::post('login', [AuthController::class,'login']);
+    Route::post('logout', [AuthController::class,'logout']);
+    Route::post('refresh', [AuthControllerr::class,'fresh']);
+    Route::post('me', [AuthController::class,'me']);
 
 
 
@@ -44,12 +39,8 @@ Route::group([
 });
 
 
-Route::group([
-    'middleware' => 'auth:api',
-], function () {
 
-    Route::get('test', [testController::class,'test']);
-});
+Route::get('test', [testController::class,'test']);
 
 
 
